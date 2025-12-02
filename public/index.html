@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>AI 행운의 포춘쿠키</title>
+    <style>
+        body { 
+            font-family: 'Apple SD Gothic Neo', sans-serif; 
+            text-align: center; 
+            background-color: #f3e5f5; 
+            display: flex; flex-direction: column; justify-content: center; height: 100vh; margin: 0;
+        }
+        .container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
+        h1 { color: #6a1b9a; }
+        button {
+            background-color: #8e24aa; color: white; border: none; padding: 15px 30px; 
+            font-size: 18px; border-radius: 50px; cursor: pointer; transition: 0.3s;
+        }
+        button:hover { background-color: #6a1b9a; transform: scale(1.05); }
+        #fortune-text { margin-top: 30px; font-size: 24px; font-weight: bold; color: #333; min-height: 50px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🥠 AI 행운의 포춘쿠키</h1>
+        <p>오늘 당신에게 필요한 조언을 AI가 선물합니다.</p>
+        <button onclick="getFortune()">포춘쿠키 열기</button>
+        <div id="fortune-text"></div>
+    </div>
+
+    <script>
+        async function getFortune() {
+            const textDiv = document.getElementById('fortune-text');
+            textDiv.innerText = "운세를 읽어오는 중...";
+            try {
+                const response = await fetch('/api/fortune');
+                const data = await response.json();
+                textDiv.innerText = `"${data.message}"`;
+            } catch (error) {
+                textDiv.innerText = "오류가 발생했습니다.";
+            }
+        }
+    </script>
+</body>
+</html>
